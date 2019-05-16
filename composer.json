@@ -26,7 +26,7 @@
             "role": "Developer"
         }
     ],
-    "minimum-stability": "alpha",
+    "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
             "TFD\\": "src/"
