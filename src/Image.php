@@ -2,7 +2,7 @@
 
 namespace TFD;
 
-class Image extends WP_Model
+class Image extends \WP_Model
 {
     public static $landscape = 'landscape';
     public static $portrait = 'portrait';
@@ -12,7 +12,7 @@ class Image extends WP_Model
 
     public $postType = 'attachment';
     public $image_src;
-    public $drawType = DrawType::PICTURE;
+    public $drawType = '';
     public $focalPoint;
 
     public $virtual = [
@@ -40,14 +40,14 @@ class Image extends WP_Model
     public function __construct(array $insert = [])
     {
         parent::__construct($insert);
-        $this->imageSizeGroup = new ImageSizeGroup\Poster();
+        $this->imageSizeGroup = 'poster';
     }
 
     protected function boot()
     {
         if (!empty($this->ID)) {
             $this->image_src = $this->getSrc($this->ID, 'full');
-            $this->focalPoint = $this->get_focal_point();
+            $this->focalPoint = $this->getFocalPoint();
         }
         parent::boot();
     }
@@ -332,9 +332,9 @@ class Image extends WP_Model
     // ----------------------------------------------------
     // DRAWING
     // ----------------------------------------------------
-    public function draw($imageSizeGroup = null, $classlist = [])
+    public function draw()
     {
-        echo "<img src=''>";
+        echo "<img src=$this->src>";
     }
 
     private function getSources($imageSizeGroup = null)
